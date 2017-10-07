@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as BooksAPI from '../BooksAPI.js';
 import Book from './Book'
-// import sortBy from 'sort-by'
 
 class BookSearch extends Component{
-    // static propTypes=  {
-    //     contacts: PropTypes.array.isRequired,
-    //     onDeleteContact: PropTypes.func.isRequired,
-    //     navigate: PropTypes.func.isRequired
-    //
-    // }
 
     state ={
         query: '',
@@ -26,6 +19,15 @@ class BookSearch extends Component{
         this.setState({query: query})
         BooksAPI.search(query, 20).then((books)=>{
             if(books.length){
+                books.forEach((book)=>{
+                 this.props.myBooks.find((b)=>{
+                    if(b.title === book.title){
+                        return book.shelf = b.shelf;
+                    }else{
+                         return book.shelf = '';
+                    }
+                 })
+                })
                 return this.setState({searchResults: books})
             }else{
                 this.setState({searchResults: []})

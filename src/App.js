@@ -16,9 +16,6 @@ class BooksApp extends React.Component {
       })
   }
 
-hello = (hi) =>{
-    console.log('hello')
-}
 onShelfChange = (book, shelf) =>{
     BooksAPI.update(book,shelf).then(
         this.setState((state)=>(
@@ -63,7 +60,7 @@ onShelfChange = (book, shelf) =>{
          />
          <Route exact path='/search'
          render={()=>(
-             <BookSearch onShelfChange={this.onShelfChange}/>
+             <BookSearch myBooks={this.state.myBooks} onShelfChange={this.onShelfChange}/>
          )}
         />
         <div className="open-search">

@@ -9,13 +9,16 @@ class Book extends Component{
         this.props.onShelfChange(this.props.book, shelf);
     }
     render(){
+        let {shelf, title, authors} = this.props.book
+        console.log(shelf)
+        const style = { width: 128, height: 188, backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})` };
         return(
             <div>
                 <div className="book">
                     <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})` }}></div>
+                        <div className="book-cover" style={style}></div>
                         <div className="book-shelf-changer">
-                            <select value={this.props.book.shelf} onChange={this.onBookShelfChange}>
+                            <select value={shelf} onChange={this.onBookShelfChange}>
                                 <option value="none" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -24,10 +27,14 @@ class Book extends Component{
                             </select>
                         </div>
                     </div>
-                    <div className="book-title">{this.props.book.title}</div>
-                    {this.props.book.authors && this.props.book.authors.map((author)=>{
-                        return <div key={author} className="book-authors">{author}</div>
-                    })}
+                    <div className="book-title">{title}</div>
+                    { authors ? 
+                        <div
+                            className="book-authors">
+                            {authors.join(', ')}
+                        </div>
+                        : ''
+                    }
                 </div>
             </div>
         )
